@@ -1,0 +1,54 @@
+name: Preparar web para Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish-branch:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Obtener la última versión de main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generar y comprobar producción
+        run: npm run build:production
+      - name: Actualizar rama hostinger
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_commit="$(git rev-parse HEAD)"
+          if git ls-remote --exit-code --heads origin hostinger >/dev/null 2>&1; then
+            git fetch origin hostinger:refs/remotes/origin/hostinger
+            git worktree add "$RUNNER_TEMP/reforbras-publish" -B hostinger origin/hostinger
+          else
+            git worktree add --detach "$RUNNER_TEMP/reforbras-publish"
+            git -C "$RUNNER_TEMP/reforbras-publish" checkout --orphan hostinger
+          fi
+          git -C "$RUNNER_TEMP/reforbras-publish" rm -r --ignore-unmatch .
+          cp -a dist/. "$RUNNER_TEMP/reforbras-publish/"
+          git -C "$RUNNER_TEMP/reforbras-publish" config user.name 'github-actions[bot]'
+          git -C "$RUNNER_TEMP/reforbras-publish" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$RUNNER_TEMP/reforbras-publish" add --all
+          if git -C "$RUNNER_TEMP/reforbras-publish" diff --cached --quiet; then
+            echo 'La web ya está actualizada.'
+          else
+            git -C "$RUNNER_TEMP/reforbras-publish" commit -m "Publicar web desde $source_commit"
+            git -C "$RUNNER_TEMP/reforbras-publish" push origin HEAD:hostinger
+          fi

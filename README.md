@@ -1,10 +1,17 @@
 # REFORBRAS — web de reformas en Valencia
 
-Web adaptable con servicios, carrusel, proyectos próximamente, presentación, proceso, preguntas frecuentes y contacto directo por WhatsApp, teléfono y correo.
+Web responsive con servicios, carrusel, proyectos próximamente y contacto por WhatsApp, teléfono y correo.
+
+## Actualizaciones automáticas
+
+- `main`: código, contenido y recursos editables.
+- `hostinger`: web lista para publicar, generada por GitHub Actions. No editar esta rama manualmente.
+
+Cada cambio en `main` genera la versión de producción, comprueba los enlaces y actualiza `hostinger` si todo es correcto. Conecta Hostinger a **hostinger**, siguiendo [HOSTINGER.md](HOSTINGER.md).
 
 ## Desarrollo local
 
-Requiere Node.js 20 o posterior. No requiere instalar dependencias JavaScript.
+Node.js 22 recomendado. No requiere instalar dependencias JavaScript.
 
 ```sh
 npm run build
@@ -12,23 +19,19 @@ npm run check
 npm run preview
 ```
 
-Vista previa: http://127.0.0.1:4173.
+Vista previa: http://127.0.0.1:4173. Usa `site.config.json`.
 
-La configuración principal está en `site.config.json`. Se mantiene en modo de vista previa. `site.release.json` contiene la configuración preparada para el dominio definitivo; no activa despliegues automáticos.
+```sh
+npm run build:production
+```
 
-## Archivos
+Genera `dist/` usando `site.release.json`, sin modificar la vista previa. Solo incluye los archivos publicables. El contacto funciona directamente mediante WhatsApp, teléfono y correo; no utiliza PHP ni SMTP.
 
-- `scripts/build.mjs`: generador de páginas y contenidos.
-- `public/`: sitio generado, imágenes, estilos y comportamiento.
-- `private/config.example.php`: ejemplo sin contraseñas para una futura integración SMTP; el lanzamiento actual utiliza contacto directo.
-- `LEEME.md`: instrucciones de edición y Hostinger.
+## Edición
+
+- `scripts/build.mjs`: contenido y estructura.
+- `public/assets/`: imágenes, estilos y comportamiento.
+- `site.release.json`: datos del sitio publicado.
 - `INVESTIGACION-Y-SEO.md`: referencias y decisiones de diseño.
-- `PARA-REVISAR-CON-DIANA.md`: decisiones pendientes del titular.
 
-## Publicación
-
-El destino previsto es Hostinger, https://www.refobras.es. Guardar el código en GitHub no publica la web. No hay integración de despliegue automático ni GitHub Pages.
-
-No subir contraseñas SMTP, tokens ni el archivo `private/config.php`. El proyecto contiene datos de identificación del titular: mantener el repositorio privado.
-
-Las imágenes de inspiración están identificadas como generadas. El logo fue facilitado por el cliente. PHPMailer conserva su licencia en `private/vendor/PHPMailer/LICENSE`.
+No subir contraseñas, tokens ni `private/config.php`. Las imágenes de inspiración están identificadas como generadas. El logo fue facilitado por el cliente. PHPMailer se conserva como recurso opcional con su licencia, pero no se despliega.

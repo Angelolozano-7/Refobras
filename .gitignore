@@ -11,3 +11,6 @@ node_modules/
 *.zip
 .DS_Store
 Thumbs.db
+
+# Salida generada de producción
+/dist/
