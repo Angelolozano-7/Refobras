@@ -1,0 +1,24 @@
+{
+  "name": "REFORBRAS",
+  "domain": "https://www.refobras.es",
+  "phone": "+34 613 503 677",
+  "email": "refobras.es@gmail.com",
+  "preview": true,
+  "contactEnabled": false,
+  "legalName": "Diana Marulanda",
+  "taxId": "41032038S",
+  "address": "",
+  "areas": [
+    "Valencia"
+  ],
+  "servicesConfirmed": false,
+  "legalReviewed": false,
+  "contentApproved": false,
+  "projects": [],
+  "testimonials": [],
+  "instagram": "refobras.es",
+  "legalForm": "Titular autónoma",
+  "manager": "Diana Marulanda",
+  "whatsappConfirmed": true,
+  "contactMode": "direct"
+}

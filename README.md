@@ -32,4 +32,3 @@ El destino previsto es Hostinger, https://www.refobras.es. Guardar el código en
 No subir contraseñas SMTP, tokens ni el archivo `private/config.php`. El proyecto contiene datos de identificación del titular: mantener el repositorio privado.
 
 Las imágenes de inspiración están identificadas como generadas. El logo fue facilitado por el cliente. PHPMailer conserva su licencia en `private/vendor/PHPMailer/LICENSE`.
-

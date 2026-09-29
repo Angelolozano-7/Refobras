@@ -1,0 +1,13 @@
+# Configuración privada y credenciales
+.env
+.env.*
+!.env.example
+private/config.php
+private/rate/
+reforbras-private/
+# Dependencias y archivos locales
+node_modules/
+*.log
+*.zip
+.DS_Store
+Thumbs.db
