@@ -41,7 +41,7 @@ jobs:
             git worktree add --detach "$RUNNER_TEMP/reforbras-publish"
             git -C "$RUNNER_TEMP/reforbras-publish" checkout --orphan hostinger
           fi
-          git -C "$RUNNER_TEMP/reforbras-publish" rm -r --ignore-unmatch .
+          git -C "$RUNNER_TEMP/reforbras-publish" rm -rf --ignore-unmatch .
           cp -a dist/. "$RUNNER_TEMP/reforbras-publish/"
           git -C "$RUNNER_TEMP/reforbras-publish" config user.name 'github-actions[bot]'
           git -C "$RUNNER_TEMP/reforbras-publish" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
